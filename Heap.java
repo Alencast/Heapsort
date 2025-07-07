@@ -16,6 +16,12 @@ public class Heap {
     public int size(){ 
         return tamanho;
     }
+    public Comparable min() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Heap vazio");
+        }
+        return (Comparable) a[1];  
+    }
 
     public boolean isEmpty(){ 
         return tamanho == capacidade;
@@ -30,7 +36,7 @@ public class Heap {
 
             int pai = (i - 1) / 2;            
             
-            if (a[i].compareTo(a[pai]) >= 0) {
+            if (((Comparable) a[i]).compareTo(a[pai]) >= 0) {
                 break; 
             }          
            
@@ -53,7 +59,7 @@ public class Heap {
     private void redimensionar() {
         capacidade *= 2;
         Object[] novoHeap = new Object[capacidade];
-        for (int i = 0; i < tamanho; i++) {
+        for (int i = 0; i < tamanho; i++) {            
             novoHeap[i] = a[i];
         }
         a = novoHeap;
