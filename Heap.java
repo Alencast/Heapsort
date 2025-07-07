@@ -40,7 +40,8 @@ public class Heap{
             int temp = a[index];
             a[index] = a[pai];
             a[pai] = temp;
-            index = pai;
+            
+            index= pai; //att o index
         }
     }
 
