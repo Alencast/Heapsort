@@ -25,7 +25,7 @@ public class Heap{
             throw new IllegalStateException("vazio");
         }
 
-        return a[1];
+        return a[1]; //lembrar que a raiz tá no index 1, pra evitar divisão por 0
     }
 
     public void upheap(int index){ 
