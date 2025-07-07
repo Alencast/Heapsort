@@ -1,69 +1,120 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class Heap {
-    private Object[] a;
+public class Heap{ 
+    
+    private int[] a;
     private int tamanho;
     private int capacidade;
 
-    public Heap(Object o, int capacidade) {
+    public Heap(int capacidade){ 
         this.capacidade = capacidade;
-        this.a = new Object[capacidade];
         this.tamanho = 0;
-        insert(o);
+        this.a = new int[capacidade + 1]; //raiz começando do 1 n do zero
+    }
+
+    public boolean isEmpty(){ 
+        return tamanho == 0;
     }
 
     public int size(){ 
         return tamanho;
     }
-    public Comparable min() {
-        if (isEmpty()) {
-            throw new IllegalStateException("Heap vazio");
+
+    public int min(){ 
+        if(isEmpty()){ 
+            throw new IllegalStateException("vazio");
         }
-        return (Comparable) a[1];  
+
+        return a[1];
     }
 
-    public boolean isEmpty(){ 
-        return tamanho == capacidade;
+    public void upheap(int index){ 
+
+        while(index > 1) { //pra percorrer o array até a raiz
+            int pai = index / 2;
+
+            if(a[index] >= a[pai]){ 
+                break;
+            }
+
+            int temp = a[index];
+            a[index] = a[pai];
+            a[pai] = temp;
+            index = pai;
+        }
     }
 
-    
-    public void upheap() {
-        int i = tamanho - 1;  
+    public void downheap(int index){ 
+
+        while(2 * index <= tamanho) { 
+
+
+            int filho = 2 * index;
+
+            if(filho < tamanho && a[filho + 1] < a[filho]){ 
+                filho++;
+            }
+
+            if(a[index] <= a[filho]){ 
+                break;
+            }
+
+            int temp = a[index];
+            a[index] = a[filho];
+
+            a[filho] = temp;
+            index = filho;
+
+        }
+    }
+
+    public void insert(int valor){ 
         
-        //ou while(true)
-        while (i > 0) {
-
-            int pai = (i - 1) / 2;            
-            
-            if (((Comparable) a[i]).compareTo(a[pai]) >= 0) {
-                break; 
-            }          
-           
-            Comparable temp = a[i];
-            a[i] = a[pai];
-            a[pai] = temp;         
-            
-            i = pai;
-        }
-    }
-
-    public void insert(Object o) {
-        if (tamanho == capacidade) {
+        if(isFull()){ 
             redimensionar();
         }
-        a[tamanho++] = o;
-        upheap();       
+
+        tamanho++;
+
+        a[tamanho] = valor;
+
+        upheap(tamanho);
+
+        
     }
 
-    private void redimensionar() {
-        capacidade *= 2;
-        Object[] novoHeap = new Object[capacidade];
-        for (int i = 0; i < tamanho; i++) {            
-            novoHeap[i] = a[i];
+    public void removeMin(){ 
+
+        if(iEmpty()){ 
+
+            throw new IllegalStateException("vazio");
+
         }
-        a = novoHeap;
+
+        int min = a[1];
+
+        a[1] = a[tamanho--];
+        downheap(1);
+
+
+        return min;
     }
 
-    
+     private void redimensionar() {
+
+       if(isFull()){ 
+
+        int novaCapacidade = capacidade * 2;
+        Object[] b = new Object[capacidade];
+        for (int i = 0; i < tamanho; i++) {            
+            b[i] = a[i];
+        }
+        a = b;
+        capacidade = novaCapacidade;
+       }
+
+       
+    }
+
+
 }
