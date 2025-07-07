@@ -9,7 +9,7 @@ public class Heap{
     public Heap(int capacidade){ 
         this.capacidade = capacidade;
         this.tamanho = 0;
-        this.a = new int[capacidade + 1]; //raiz começando do 1 n do zero
+        this.a = new int[capacidade + 1]; // pq a raiz tá começando do 1 n do zero
     }
 
     public boolean isEmpty(){ 
