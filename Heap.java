@@ -5,7 +5,6 @@ public class Heap{
     private int[] a;
     private int tamanho;
     private int capacidade;
-    private int teste;
 
     public Heap(int capacidade){ 
         this.capacidade = capacidade;
