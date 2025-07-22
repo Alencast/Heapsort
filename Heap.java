@@ -84,7 +84,7 @@ public class Heap{
         
     }
 
-    public void removeMin(){ 
+    public int removeMin(){ 
 
         if(iEmpty()){ 
 
